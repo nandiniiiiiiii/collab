@@ -1,6 +1,7 @@
 import React from 'react';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from '@syncfusion/ej2-react-kanban';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
+import socket from '../socket/index.js';
 
 const Kanban = () => {
   const kanbanData = new DataManager({

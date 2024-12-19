@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // for snow theme
-import { io } from 'socket.io-client';
+import socket from '../socket/index.js';
+import { useParams } from 'react-router-dom';
 
 function TextEditor() {
-  const [editorContent, setEditorContent] = useState('');
-  const socket = io('http://localhost:5000');  // Connect to the server
+    const [editorContent, setEditorContent] = useState('');
+    const { roomId } = useParams(); // Get roomId from URL
 
-  // Listen for content updates from other users
+  // Load saved content from local storage when the component mounts
   useEffect(() => {
+    const savedContent = localStorage.getItem(`editorContent_${roomId}`);
+    if (savedContent) {
+      setEditorContent(savedContent); // Set content from local storage if it exists
+    }
+
+    // Listen for content updates from other users
     socket.on('update-content', (newContent) => {
       // Only update if the new content is different from the current one
       if (newContent !== editorContent) {
         setEditorContent(newContent);
+        localStorage.setItem(`editorContent_${roomId}`, newContent); // Update local storage
       }
     });
 
@@ -20,12 +28,14 @@ function TextEditor() {
     return () => {
       socket.off('update-content');
     };
-  }, [editorContent, socket]);
+  }, [roomId, editorContent]);
 
   // Send content updates to the server
   const handleChange = (content) => {
     setEditorContent(content);
-    socket.emit('text-change', content);  // Emit text change to server
+    localStorage.setItem(`editorContent_${roomId}`, content);
+    socket.emit('text-change', {roomId, newContent: content});  // Emit text change to server
+    console.log(roomId,content)
   };
 
   return (
