@@ -2,6 +2,7 @@ import React from 'react';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from '@syncfusion/ej2-react-kanban';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import socket from '../socket/index.js';
+import { PlusCircle, Edit, Trash2 } from 'lucide-react'
 
 const Kanban = () => {
   const kanbanData = new DataManager({
@@ -20,17 +21,20 @@ const Kanban = () => {
 
   return (
     <div>
-      <div className='flex flex-row'>
-        <div className="mt-4 text-center">
-          <button className="bg-green-500 text-white px-4 py-2 rounded">Add Column</button>
-        </div>
-        <div className="mt-4 text-center">
-          <button className="bg-green-500 text-white px-4 py-2 rounded">Edit column</button>
-        </div>
-        <div className="mt-4 text-center">
-          <button className="bg-green-500 text-white px-4 py-2 rounded">Delete column</button>
-        </div>
-      </div>
+      <div className="flex flex-row space-x-4 justify-center mt-6 mb-6">
+      <button variant="outline" className="bg-blue-500 hover:bg-blue-600 text-white border-blue-600 flex rounded px-4 py-2 justify-center items-center">
+        <PlusCircle className="mr-2 h-4 w-4" />
+        Add Column
+      </button>
+      <button variant="outline" className="bg-amber-500 hover:bg-amber-600 text-white border-amber-600 flex rounded px-4 py-2 justify-center items-center">
+        <Edit className="mr-2 h-4 w-4" />
+        Edit Column
+      </button>
+      <button variant="outline" className="bg-red-500 hover:bg-red-600 text-white border-red-600 flex rounded px-4 py-2 justify-center items-center">
+        <Trash2 className="mr-2 h-4 w-4" />
+        Delete Column
+      </button>
+    </div>
       <KanbanComponent
         id="kanban"
         dataSource={kanbanData}

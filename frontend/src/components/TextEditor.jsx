@@ -40,6 +40,9 @@ function TextEditor() {
 
   return (
     <div>
+      <div className="text-white rounded-t-lg mb-5">
+        <h1 className='text-2xl font-bold text-green-700'>Text Editor</h1>
+      </div>
       <ReactQuill value={editorContent} onChange={handleChange} />
     </div>
   );

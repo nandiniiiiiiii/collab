@@ -1,4 +1,3 @@
-import './App.css';
 import '@syncfusion/ej2-react-kanban/styles/material.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LinkGeneration from './components/LinkGeneration';
@@ -9,9 +8,9 @@ import TextEditor from './components/TextEditor';
 
 function App() {
   return (
-  <div className='flex justify-center items-center pt-20'>
+  <div className='flex justify-center items-center'>
       <Router>
-      <div className="flex justify-center items-center pt-20">
+      <div className="flex justify-center items-center">
         <Routes>
           {/* Main Page for Link Generation */}
           <Route path="/" element={<LinkGeneration/>} />
